@@ -1,22 +1,37 @@
-name: 🚀 Deploy website on push
+name: 🚀 Deploy on Push
+
 on:
-  push: 
-    branches: [main]
+  push:
+    branches:
+      - main
 
 jobs:
-  build:
-    name: 🎉 Deploy
+  deploy:
     runs-on: ubuntu-latest
+
     steps:
-    - name: Deploy using SSH 
-      uses: appleboy/ssh-action@v0.5.0
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Deploy to Server
+      uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.HOST}}
-        username: ${{ secrets.USERNAME}}
-        key: ${{ secrets.SSH_PRIVATE_KEY}}
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: 22
         script: |
-          cd /home/iwasim07/gitautomate/
+          # Navigate to the deployment directory on the server
+          cd /home/iwasim07/gitautomate/Demo1
+
+          # Pull the latest changes from the repository
           git pull origin main
+
+          # Additional deployment steps (if needed)
+          # e.g., npm install, build scripts, etc.
+
+          # Restart your application or web server (if needed)
+          # e.g., systemctl restart your-app-service
+
+          # Print status after deployment
           git status
-        
