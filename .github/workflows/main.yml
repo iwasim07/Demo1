@@ -22,7 +22,7 @@ jobs:
         port: 22
         script: |
           # Navigate to the deployment directory on the server
-          cd /home/iwasim07/gitautomate/Demo1
+          cd /home/ubuntu/Demo1
 
           # Pull the latest changes from the repository
           git pull origin main
